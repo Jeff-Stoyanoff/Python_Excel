@@ -325,4 +325,30 @@ wb.save(r'C:\Users\stoyt\Desktop\1979_NL_Schedule-By_Team.xlsx')
 # Close the workbook
 wb.close()
 
+import openpyxl
+from openpyxl.styles import PatternFill
+# Assuming 'wb' is a global variable pointing to the workbook
+wb = openpyxl.load_workbook(r'C:\Users\stoyt\Desktop\1979_NL_Schedule-By_Team.xlsx')
 
+def app_count(sheet_name, plr_name):
+    active_sheet = wb[sheet_name]
+    yellow_fill = PatternFill(start_color="FFFFFF00", end_color="FFFFFF00", fill_type="solid")
+
+    start_row = 3
+    end_row = 173
+    column = 'G'
+
+     # Iterate through the specified column and highlight rows with player's name
+    for row in range(start_row, end_row + 1):
+        cell_value = active_sheet[f'{column}{row}'].value
+        if plr_name in str(cell_value):
+            # Apply yellow fill to the entire row
+            for cell in active_sheet[row]:
+                active_sheet[f'{column}{row}'].fill = yellow_fill
+
+app_count('Chicago', 'Wortham')
+
+wb.save(r'C:\Users\stoyt\Desktop\1979_NL_Schedule-By_Team.xlsx')
+
+# Close the workbook
+wb.close()

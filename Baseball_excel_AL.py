@@ -137,20 +137,20 @@ def pitcher_highlight(sheet_name, column, name): # Removes fill in pitcher colum
     print(count)
     return count
 
-pitcher_highlight(sheet_name="Baltimore", column=17, name="Stone")
-pitcher_highlight(sheet_name="Boston", column=17, name="Renko")
-pitcher_highlight(sheet_name="Cleveland", column=17, name="Garland")
-pitcher_highlight(sheet_name="Detroit", column=17, name="Wilcox")
-pitcher_highlight(sheet_name="Milwaukee", column=17, name="Haas")
-pitcher_highlight(sheet_name="New York", column=17, name="Beattie")
-pitcher_highlight(sheet_name="Toronto", column=17, name="Moore")
-pitcher_highlight(sheet_name="California", column=17, name="Aase")
-pitcher_highlight(sheet_name="Chicago", column=17, name="Howard")
-pitcher_highlight(sheet_name="Kansas City", column=17, name="Gura")
-pitcher_highlight(sheet_name="Minnesota", column=17, name="Goltz")
-pitcher_highlight(sheet_name="Oakland", column=17, name="Norris")
-pitcher_highlight(sheet_name="Seattle", column=17, name="Parrott")
-pitcher_highlight(sheet_name="Texas", column=17, name="Jenkins")
+pitcher_highlight(sheet_name="Baltimore", column=17, name="")
+pitcher_highlight(sheet_name="Boston", column=17, name="")
+pitcher_highlight(sheet_name="Cleveland", column=17, name="Barker")
+pitcher_highlight(sheet_name="Detroit", column=17, name="Billingham")
+pitcher_highlight(sheet_name="Milwaukee", column=17, name="Travers")
+pitcher_highlight(sheet_name="New York", column=17, name="John")
+pitcher_highlight(sheet_name="Toronto", column=17, name="Huffman")
+pitcher_highlight(sheet_name="California", column=17, name="Ryan")
+pitcher_highlight(sheet_name="Chicago", column=17, name="")
+pitcher_highlight(sheet_name="Kansas City", column=17, name="")
+pitcher_highlight(sheet_name="Minnesota", column=17, name="Zahn")
+pitcher_highlight(sheet_name="Oakland", column=17, name="Keough")
+pitcher_highlight(sheet_name="Seattle", column=17, name="Honeycutt")
+pitcher_highlight(sheet_name="Texas", column=17, name="Alexander")
 
 #wb.save(r'C:\Users\stoyt\Desktop\CodingDojo\python_stack\algoPractice\1979_AL_Schedule-By_Team.xlsx')
 wb.save(r'C:\Users\stoyt\Desktop\1979_AL_Schedule-By_Team.xlsx')
@@ -189,22 +189,20 @@ def start_count(sheet_name, pitcher, date):  # Returns start number and total st
 
 # Example usage
 data_sets = [
-     {"sheet_name": "Baltimore", "date": "6/13", "pitcher": "Stone"},
-     {"sheet_name": "Boston", "date": "6/13", "pitcher": "Renko"},
-     {"sheet_name": "Cleveland", "date": "6/13", "pitcher": "Garland"},
-     {"sheet_name": "Detroit", "date": "6/13", "pitcher": "Wilcox"},
-     {"sheet_name": "Milwaukee", "date": "6/13", "pitcher": "Haas"},
-     {"sheet_name": "New York", "date": "6/13", "pitcher": "Beattie"},
-     {"sheet_name": "Toronto", "date": "6/13", "pitcher": "Moore"},
-     {"sheet_name": "California", "date": "6/13", "pitcher": "Aase"},
-     {"sheet_name": "Chicago", "date": "6/13", "pitcher": "Howard"},
-     {"sheet_name": "Kansas City", "date": "6/13", "pitcher": "Gura"},
-     {"sheet_name": "Minnesota", "date": "6/13", "pitcher": "Goltz"},
-     {"sheet_name": "Oakland", "date": "6/13", "pitcher": "Norris"},
-     {"sheet_name": "Seattle", "date": "6/13", "pitcher": "Parrott"},
-     {"sheet_name": "Texas", "date": "6/13", "pitcher": "Jenkins"},
-     {"sheet_name": "California", "date": "6/13", "pitcher": "Eddy"},
-     {"sheet_name": "Toronto", "date": "6/13", "pitcher": "Willis"},
+     {"sheet_name": "Baltimore", "date": "6/14", "pitcher": ""},
+     {"sheet_name": "Boston", "date": "6/14", "pitcher": ""},
+     {"sheet_name": "Cleveland", "date": "6/14", "pitcher": "Barker"},
+     {"sheet_name": "Detroit", "date": "6/14", "pitcher": "Billingham"},
+     {"sheet_name": "Milwaukee", "date": "6/14", "pitcher": "Travers"},
+     {"sheet_name": "New York", "date": "6/14", "pitcher": "John"},
+     {"sheet_name": "Toronto", "date": "6/14", "pitcher": "Huffman"},
+     {"sheet_name": "California", "date": "6/14", "pitcher": "Ryan"},
+     {"sheet_name": "Chicago", "date": "6/14", "pitcher": ""},
+     {"sheet_name": "Kansas City", "date": "6/14", "pitcher": ""},
+     {"sheet_name": "Minnesota", "date": "6/14", "pitcher": "Zahn"},
+     {"sheet_name": "Oakland", "date": "6/14", "pitcher": "Keough"},
+     {"sheet_name": "Seattle", "date": "6/14", "pitcher": "Honeycutt"},
+     {"sheet_name": "Texas", "date": "6/14", "pitcher": "Alexander"},
 ]
 
 active_sheet = wb['More_Info']
@@ -232,6 +230,34 @@ for data in data_sets:
     row_counter += 1
 
 # Save the workbook to apply changes
+wb.save(r'C:\Users\stoyt\Desktop\1979_AL_Schedule-By_Team.xlsx')
+
+# Close the workbook
+wb.close() 
+
+import openpyxl
+from openpyxl.styles import PatternFill
+# Assuming 'wb' is a global variable pointing to the workbook
+wb = openpyxl.load_workbook(r'C:\Users\stoyt\Desktop\1979_AL_Schedule-By_Team.xlsx')
+
+def app_count(sheet_name, plr_name):
+    active_sheet = wb[sheet_name]
+    yellow_fill = PatternFill(start_color="FFFFFF00", end_color="FFFFFF00", fill_type="solid")
+
+    start_row = 3
+    end_row = 173
+    column = 'G'
+
+     # Iterate through the specified column and highlight rows with player's name
+    for row in range(start_row, end_row + 1):
+        cell_value = active_sheet[f'{column}{row}'].value
+        if plr_name in str(cell_value):
+            # Apply yellow fill to the entire row
+            for cell in active_sheet[row]:
+                active_sheet[f'{column}{row}'].fill = yellow_fill
+
+app_count('Chicago', 'Wortham')
+
 wb.save(r'C:\Users\stoyt\Desktop\1979_AL_Schedule-By_Team.xlsx')
 
 # Close the workbook
